@@ -11,5 +11,5 @@ Still Developing, **Do not** use in production until you know why.
 - [x] seperate config directory
 - [ ] env support
 - [ ] event support
-- [ ] pdo extendsion
+- [ ] pdo extension
 - [ ] etc...
