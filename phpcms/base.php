@@ -268,7 +268,7 @@ class pc_base {
 				return $default;
 			}
 		}
-		$path = CACHE_PATH.'configs'.DIRECTORY_SEPARATOR.$file.'.php';
+		$path = CONFIG_PATH. $file.'.php';
 		if (file_exists($path)) {
 			$configs[$file] = include $path;
 		}
