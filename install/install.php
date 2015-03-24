@@ -2,7 +2,7 @@
 @set_time_limit(1000);
 if(phpversion() < '5.3.0') set_magic_quotes_runtime(0);
 if(phpversion() < '5.2.0') exit('您的php版本过低，不能安装本软件，请升级到5.2.0或更高版本再安装，谢谢！');
-include '../phpcms/base.php';
+require '../common.php';
 define('INSTALL_MODULE',true);
 defined('IN_PHPCMS') or exit('No permission resources.');
 if(file_exists(CACHE_PATH.'install.lock')) exit('您已经安装过PHPCMS,如果需要重新安装，请删除 ./caches/install.lock 文件！');
@@ -496,7 +496,7 @@ function writable_check($path){
 
 function set_config($config,$cfgfile) {
 	if(!$config || !$cfgfile) return false;
-	$configfile = CACHE_PATH.'configs'.DIRECTORY_SEPARATOR.$cfgfile.'.php';
+	$configfile = CONFIG_PATH.$cfgfile.'.php';
 	if(!is_writable($configfile)) showmessage('Please chmod '.$configfile.' to 0777 !');
 	$pattern = $replacement = array();
 	foreach($config as $k=>$v) {
