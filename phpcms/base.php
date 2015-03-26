@@ -25,10 +25,22 @@ define('HTTP_REFERER', isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'
 //系统开始时间
 define('SYS_START_TIME', microtime());
 
+//加载必要的核心类
+//环境变量辅助类
+pc_base::load_sys_class('dotenv', '', 0);
+
 //加载公用函数库
 pc_base::load_sys_func('global');
 pc_base::load_sys_func('extention');
 pc_base::auto_load_func();
+
+//设定环境变量
+try {
+	Dotenv::load(PHPCMS_PATH);
+} catch (Exception $e) {
+	//todo log
+	exit('缺少环境变量配置');
+}
 
 pc_base::load_config('system','errorlog') ? set_error_handler('my_error_handler') : error_reporting(E_ERROR | E_WARNING | E_PARSE);
 //设置本地时差
