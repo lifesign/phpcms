@@ -20,18 +20,53 @@ class application {
 	}
 	
 	/**
-	 * 调用件事
+	 * 调用控制器对应的方法
 	 */
 	private function init() {
 		$controller = $this->load_controller();
-		if (method_exists($controller, ROUTE_A)) {
-			if (preg_match('/^[_]/i', ROUTE_A)) {
-				exit('You are visiting the action is to protect the private action');
-			} else {
-				call_user_func(array($controller, ROUTE_A));
+
+		try {
+			//检测方法是否存在
+			if (!method_exists($controller, ROUTE_A)) {
+				throw new BadMethodCallException('Action does not exist.');
 			}
-		} else {
-			exit('Action does not exist.');
+
+            $method = new \ReflectionMethod($controller, ROUTE_A);
+
+            if($method->isPublic() && !$method->isStatic()) {
+                $class  =   new \ReflectionClass($controller);
+                // 前置操作
+                if($class->hasMethod('_before_'.ROUTE_A)) {
+                    $before = $class->getMethod('_before_'.ROUTE_A);
+                    if($before->isPublic()) {
+                        $before->invoke($controller);
+                    }
+                }
+
+				//执行当前操作
+                $method->invoke($controller);
+
+                // 后置操作
+                if($class->hasMethod('_after_'.ROUTE_A)) {
+                    $after =   $class->getMethod('_after_'.ROUTE_A);
+                    if($after->isPublic()) {
+                        $after->invoke($controller);
+                    }
+                }
+
+            } else {
+                // 操作方法不是Public 抛出异常
+                throw new \ReflectionException();
+            }
+
+		} catch (BadMethodCallException $e) {
+
+			exit($e->getMessage());
+
+		} catch (ReflectionException $e) {
+
+			exit('You are visiting the action is to protect the private action');
+
 		}
 	}
 	
