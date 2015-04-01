@@ -10,6 +10,7 @@ Still Developing, **Do not** use in production until you know why.
 - [x] seperate html_root and source code
 - [x] seperate config directory
 - [x] env support
+- [ ] seperate postjs outof caches directory
 - [ ] event support
 - [ ] pdo extension
 - [ ] etc...
