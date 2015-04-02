@@ -58,11 +58,17 @@ class html {
 			if (!is_array($pinfo) || empty($pinfo)) return true;
 			extract($pinfo, EXTR_PREFIX_SAME , 'p');
 		}
-		$file = CACHE_PATH.$path;
+		$file = WEB_ROOT_PATH.$path;
+
 		ob_start();
 		include template('poster', $type);
 		$data = ob_get_contents();
 		ob_end_clean();
+
+		$dir = dirname($file);
+        if(!is_dir($dir)) {
+            mkdir($dir, 0777,1);
+        }
 		
 		$strlen = pc_base::load_config('system','lock_ex') ? file_put_contents($file, $data, LOCK_EX) : file_put_contents($file, $data);
 		@chmod($file,0777);

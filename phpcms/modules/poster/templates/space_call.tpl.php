@@ -27,7 +27,7 @@ include $this->admin_tpl('header', 'admin');
 <fieldset>
 	<legend><?php echo L('second_code')?></legend>
     <?php echo L('js_code_html')?><br />
-<input name="jscode2" id="jscode2" value='<script language="javascript" src="{APP_PATH}caches/<?php echo $r['path']?>"></script>' style="width:410px">
+<input name="jscode2" id="jscode2" value='<script language="javascript" src="{APP_PATH}<?php echo $r['path']?>"></script>' style="width:410px">
  <input type="button" onclick="$('#jscode2').select();$('#jscode2').val().execCommand('Copy');" class="button"  style="width:114px" value="<?php echo L('copy_code')?>">
 </fieldset>
 <?php } ?>
