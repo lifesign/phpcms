@@ -11,7 +11,7 @@ Still Developing, **Do not** use in production until you know why.
 - [x] seperate config directory
 - [x] env support
 - [x] seperate postjs outof caches directory
-- [ ] add postjs config
+- [x] add postjs config
 - [ ] event support
 - [ ] pdo extension
 - [ ] etc...
