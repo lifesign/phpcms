@@ -3,7 +3,7 @@ class form {
 	/**
 	 * 编辑器
 	 * @param int $textareaid
-	 * @param int $toolbar 
+	 * @param int $toolbar
 	 * @param string $module 模块名称
 	 * @param int $catid 栏目id
 	 * @param int $color 编辑器颜色
@@ -50,7 +50,7 @@ class form {
 		$str .= "<script type=\"text/javascript\">\r\n";
 		$str .= "CKEDITOR.replace( '$textareaid',{";
 		$str .= "height:{$height},";
-	
+
 		$show_page = ($module == 'content' && !$disabled_page) ? 'true' : 'false';
 		$str .="pages:$show_page,subtitle:$show_page,textareaid:'".$textareaid."',module:'".$module."',catid:'".$catid."',\r\n";
 		if($allowupload) {
@@ -83,9 +83,9 @@ class form {
 		$str .= $ext_str;
 		return $str;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param string $name 表单名称
 	 * @param int $id 表单id
 	 * @param string $value 表单默认值
@@ -95,7 +95,7 @@ class form {
 	 * @param string $class 表单风格
 	 * @param string $ext 表单扩展属性 如果 js事件等
 	 * @param string $alowexts 允许图片格式
-	 * @param array $thumb_setting 
+	 * @param array $thumb_setting
 	 * @param int $watermark_setting  0或1
 	 */
 	public static function images($name, $id = '', $value = '', $moudle='', $catid='', $size = 50, $class = '', $ext = '', $alowexts = '',$thumb_setting = array(),$watermark_setting = 0 ) {
@@ -114,7 +114,7 @@ class form {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param string $name 表单名称
 	 * @param int $id 表单id
 	 * @param string $value 表单默认值
@@ -124,7 +124,7 @@ class form {
 	 * @param string $class 表单风格
 	 * @param string $ext 表单扩展属性 如果 js事件等
 	 * @param string $alowexts 允许上传的文件格式
-	 * @param array $file_setting 
+	 * @param array $file_setting
 	 */
 	public static function upfiles($name, $id = '', $value = '', $moudle='', $catid='', $size = 50, $class = '', $ext = '', $alowexts = '',$file_setting = array() ) {
 		if(!$id) $id = $name;
@@ -139,10 +139,10 @@ class form {
 		$authkey = upload_key("1,$alowexts,1,$file_ext");
 		return $str."<input type=\"text\" name=\"$name\" id=\"$id\" value=\"$value\" size=\"$size\" class=\"$class\" $ext/>  <input type=\"button\" class=\"button\" onclick=\"javascript:flashupload('{$id}_files', '".L('attachmentupload')."','{$id}',submit_attachment,'1,{$alowexts},1,{$file_ext}','{$moudle}','{$catid}','{$authkey}')\"/ value=\"".L('filesupload')."\">";
 	}
-	
+
 	/**
 	 * 日期时间控件
-	 * 
+	 *
 	 * @param $name 控件name，id
 	 * @param $value 选中值
 	 * @param $isdatetime 是否显示时间
@@ -160,7 +160,7 @@ class form {
 			} else {
 				$showsTime = '12';
 			}
-			
+
 		} else {
 			$size = 10;
 			$format = '%Y-%m-%d';
@@ -222,7 +222,7 @@ class form {
 					$sql = array('catid'=>$r['catid'],'roleid'=>$user_groupid,'action'=>'add');
 					$array = $priv->get_one($sql);
 					if(!$array){
-						continue;	
+						continue;
 					}
 				}
 				if($siteid != $r['siteid'] || ($type >= 0 && $r['type'] != $type)) continue;
@@ -245,7 +245,7 @@ class form {
 
 		$tree->init($categorys);
 		$string .= $tree->get_tree_category(0, $str, $str2);
-			
+
 		$string .= '</select>';
 		return $string;
 	}
@@ -256,15 +256,15 @@ class form {
 		$id = $id ? $id : $name;
 		$string = "<select name='$name' id='$id' $property>\n<option value='0'>$alt</option>\n";
 		if($result['data']) {
-			foreach($result['data'] as $area) {	
-				$categorys[$area['linkageid']] = array('id'=>$area['linkageid'], 'parentid'=>$area['parentid'], 'name'=>$area['name']);	
+			foreach($result['data'] as $area) {
+				$categorys[$area['linkageid']] = array('id'=>$area['linkageid'], 'parentid'=>$area['parentid'], 'name'=>$area['name']);
 			}
 		}
 		$str  = "<option value='\$id' \$selected>\$spacer \$name</option>";
 
 		$tree->init($categorys);
 		$string .= $tree->get_tree($parentid, $str, $linkageid);
-			
+
 		$string .= '</select>';
 		return $string;
 	}
@@ -285,10 +285,10 @@ class form {
 		$string .= '</select>';
 		return $string;
 	}
-	
+
 	/**
 	 * 复选框
-	 * 
+	 *
 	 * @param $array 选项 二维数组
 	 * @param $id 默认选中值，多个用 '逗号'分割
 	 * @param $str 属性
@@ -314,7 +314,7 @@ class form {
 
 	/**
 	 * 单选框
-	 * 
+	 *
 	 * @param $array 选项 二维数组
 	 * @param $id 默认选中值
 	 * @param $str 属性
@@ -331,7 +331,7 @@ class form {
 	}
 	/**
 	 * 模板选择
-	 * 
+	 *
 	 * @param $style  风格
 	 * @param $module 模块
 	 * @param $id 默认选中值
@@ -344,30 +344,43 @@ class form {
 		$confing_path = PC_PATH.$tpl_root.DIRECTORY_SEPARATOR.$style.DIRECTORY_SEPARATOR.'config.php';
 		$localdir = str_replace(array('/', '\\'), '', $tpl_root).'|'.$style.'|'.$module;
 		$templates = glob($templatedir.$pre.'*.html');
+		//模板使用标识
+		$use_default = ($style == 'style');
+		$extra = '';
 		if(empty($templates)) {
 			$style = 'default';
 			$templatedir = PC_PATH.$tpl_root.DIRECTORY_SEPARATOR.$style.DIRECTORY_SEPARATOR.$module.DIRECTORY_SEPARATOR;
 			$confing_path = PC_PATH.$tpl_root.DIRECTORY_SEPARATOR.$style.DIRECTORY_SEPARATOR.'config.php';
 			$localdir = str_replace(array('/', '\\'), '', $tpl_root).'|'.$style.'|'.$module;
 			$templates = glob($templatedir.$pre.'*.html');
+			$use_default = true;
+			$extra = '【未找到采用默认】';
 		}
+		if ($style == 'default') $use_default = true;
 		if(empty($templates)) return false;
 		$files = @array_map('basename', $templates);
 		$names = array();
 		if(file_exists($confing_path)) {
 			$names = include $confing_path;
 		}
+		//获取站点信息
+		$site_id = $use_default ? 1 : get_siteid();
+		$sitelist = getcache('sitelist', 'commons');
+		$site_name = !empty($sitelist[$site_id]['name']) ? $sitelist[$site_id]['name'] : '';
+
 		$templates = array();
 		if(is_array($files)) {
 			foreach($files as $file) {
 				$key = substr($file, 0, -5);
-				$templates[$key] = isset($names['file_explan'][$localdir][$file]) && !empty($names['file_explan'][$localdir][$file]) ? $names['file_explan'][$localdir][$file].'('.$file.')' : $file;
+				$templates[$key] = isset($names['file_explan'][$localdir][$file]) && !empty($names['file_explan'][$localdir][$file])
+							? "{$extra}【{$site_name}】-【" . $names['file_explan'][$localdir][$file].'】-'.$file
+							: "{$extra}【{$site_name}】-【未命名】-".$file;
 			}
 		}
 		ksort($templates);
 		return self::select($templates, $id, $str,L('please_select'));
 	}
-	
+
 	/**
 	 * 验证码
 	 * @param string $id            生成的验证码ID
@@ -384,7 +397,7 @@ class form {
 	}
 	/**
 	 * url  规则调用
-	 * 
+	 *
 	 * @param $module 模块
 	 * @param $file 文件名
 	 * @param $ishtml 是否为静态规则
@@ -399,7 +412,7 @@ class form {
 		foreach($urlrules as $roleid=>$rules) {
 			if($rules['module'] == $module && $rules['file']==$file && $rules['ishtml']==$ishtml) $array[$roleid] = $rules['example'];
 		}
-		
+
 		return form::select($array, $id,$str,$default_option);
 	}
 }
